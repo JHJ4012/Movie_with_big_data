@@ -1,0 +1,15 @@
+.header {
+    text-align : center;
+    width : 100%;
+    padding-top : 2rem;
+    font-size : 1.5rem;
+}
+
+.header_title {
+    text-decoration: none;
+    color : white;
+}
+
+.header_title:hover {
+    color : gray;
+}

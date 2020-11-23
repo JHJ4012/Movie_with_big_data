@@ -1,0 +1,21 @@
+.search_screen {
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top : 2rem;
+}
+
+.MuiPaper-root {
+    width : 30vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex;
+    font-size: calc(10px + 2vmin);
+    margin-top : 1.5rem;
+}
+
+.inputBase {
+    padding-left : 1rem;
+    width : 30vw; 
+}

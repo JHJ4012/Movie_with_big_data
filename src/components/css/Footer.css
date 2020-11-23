@@ -1,0 +1,9 @@
+.footer {
+    width : 100%;
+    height : 10vh
+}
+.footer-text {
+    text-align : right;
+    padding-top : 1rem;
+    padding-bottom : 1rem;
+}

@@ -1,0 +1,19 @@
+.navigation {
+    text-align : center;
+    display : table;
+    table-layout : fixed;
+    width : 100%;
+}
+
+.item {
+    text-decoration : none;
+    color : white;
+    display : table-cell;
+    padding-top : 1rem;
+    padding-bottom : 1rem;
+    font-size : 1.5rem;
+}
+
+.item:hover {
+    color : gray;
+}

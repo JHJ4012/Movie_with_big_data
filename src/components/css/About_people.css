@@ -1,0 +1,8 @@
+.table_div{
+    margin : 2rem;
+    background-color : white;
+}
+
+.MuiTableCell-root {
+    min-width: 5rem;
+}
