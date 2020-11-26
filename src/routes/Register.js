@@ -5,13 +5,9 @@ class Register extends Component {
     
     constructor() {
         super();
-        this.ref = firebase.firestore().collection('user');
-        this.unsubscribe = null;
         this.state = {
-            id : '',
-            pwd : '',
-            name : '',
-            manager : false
+            email : '',
+            password : ''
         }
     }
 
@@ -23,31 +19,19 @@ class Register extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { id, pwd, name, manager } = this.state;
-        this.ref.doc(id).get()
-        .then((doc) => {
-            if(doc.exists){
-                console.log("이미 있어~~");
-            }else{
-                this.ref.doc(id).set({
-                    pwd,
-                    name,
-                    manager
-                })
-                .then((docRef) => {
-                    this.setState({
-                        id : '',
-                        pwd : '',
-                        name : '',
-                    });
-                })
-                .catch((error) => {
-                    console.error("Error adding document: ", error);
-                })
+        const { email, password } = this.state;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            var user = firebase.auth().currentUser;
+            this.setState({
+                logged : user
+            })
+            if(user.displayName == null){
+                this.props.history.push('/profile');
             }
         })
         .catch((error) => {
-            console.error("Error!! : ", error);
+            console.log("이미 존재하는 이메일입니다");
         })
     }
 
@@ -56,21 +40,12 @@ class Register extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div>
-                        <label>ID</label>
-                        <input type="text" name="id" onChange={this.onChange} placeholder="input your ID" />
+                        <label>Email</label>
+                        <input type="email" name="email" onChange={this.onChange} placeholder ="email"/>
                     </div>
                     <div>
-                        <label>Password</label>
-                        <input type="password" name="pwd" onChange={this.onChange} placeholder="input your Password"/>
-                    </div>
-                    <div>
-                        <label>Name</label>
-                        <input type="text" name="name" onChange={this.onChange} placeholder="input your name" />
-                    </div>
-                    <div>
-                        <label>Are you manager??</label>
-                        <input type="radio" name="manager" value="true" onChange={this.onChange}/> Yes
-                        <input type="radio" name="manager" value="false" onChange={this.onChange}/> no
+                        <label>password</label>
+                        <input type="password" name="password" onChange={this.onChange} placeholder="password"/>
                     </div>
                     <button type="submit">Submit</button>
                 </form>

@@ -9,10 +9,6 @@ class Header extends Component {
                 <div className = "header">
                     <Link to = "/" className = "header_title"><h1>Movie_with_big_data</h1></Link>
                 </div>
-                <div>
-                    <Link to = "/register" className = "register">회원가입</Link>
-                    <Link to = "/login" className = "login">로그인</Link>
-                </div>
             </div>
         );
     }

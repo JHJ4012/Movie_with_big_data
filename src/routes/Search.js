@@ -10,6 +10,7 @@ import Aboutmovie from '../components/table/About_movie'
 import Aboutpeople from '../components/table/About_people'
 import Aboutcompany from '../components/table/About_company'
 import { withStyles } from '@material-ui/core/styles';
+import firebase from '../firebase';
 
 const styles  = {
   margin: {
@@ -20,6 +21,7 @@ const styles  = {
 class Search extends Component {
 
   constructor(props) {
+    console.log(firebase.auth().currentUser)
     super(props);
     this.state = {
       control: 0,

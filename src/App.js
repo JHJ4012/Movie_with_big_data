@@ -7,8 +7,8 @@ import Header from './components/holded_components/Header'
 import Footer from './components/holded_components/Footer'
 import Register from './routes/Register'
 import Main from './routes/Main'
-import Login from './routes/Login'
 import Board from './routes/Board'
+import Profile from './routes/Profile'
 
 import './App.css'
 
@@ -24,8 +24,8 @@ class App extends Component {
             <Route path="/search" component={Search} />
             <Route path = "/boxOffice" component = {BoxOffice}/>
             <Route path = "/register" component = {Register}/>
-            <Route path = "/login" component = {Login}/>
             <Route path = "/board" component = {Board}/>
+            <Route path = "/profile" component = {Profile}/>
           </div>
           <Footer/>
         </Router>
