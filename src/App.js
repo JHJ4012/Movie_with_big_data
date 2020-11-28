@@ -9,7 +9,7 @@ import Register from './routes/Register'
 import Main from './routes/Main'
 import Board from './routes/Board'
 import Profile from './routes/Profile'
-
+import Create_Post from './routes/Create_Post'
 import './App.css'
 
 class App extends Component {
@@ -26,6 +26,7 @@ class App extends Component {
             <Route path = "/register" component = {Register}/>
             <Route path = "/board" component = {Board}/>
             <Route path = "/profile" component = {Profile}/>
+            <Route path = "/create_post" component = {Create_Post}/>
           </div>
           <Footer/>
         </Router>

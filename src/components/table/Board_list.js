@@ -16,13 +16,6 @@ class Board_list extends Component {
         }
     }
 
-    componentDidMount(){
-        var user = firebase.auth().currentUser;
-        this.setState({
-            post_user_name : user.displayName
-        })
-    }
-
     render() {
         return (
             <div className = "table_div">
@@ -40,7 +33,7 @@ class Board_list extends Component {
                                     return(
                                         <TableRow key = {c.id}>
                                             <TableCell>{c.title !== null ? c.title : ''}</TableCell>
-                                            <TableCell>{this.state.post_user_name !== null ? this.state.post_user_name : ''}</TableCell>
+                                            <TableCell>{c.user_name !== null ? c.user_name : ''}</TableCell>
                                             <TableCell>{c.modified_date !== null ? c.modified_date : ''}</TableCell>
                                         </TableRow>
                                     );

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link } from 'react-router-dom';
-import Board_list from '../components/table/Board_list'
+import Board_list from '../components/table/Board_list';
+// import * as admin from 'firebase-admin';
 
 class Board extends Component {
     _isMounted = false;
@@ -16,7 +17,7 @@ class Board extends Component {
         this._isMounted = true;
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
-                console.log(user);
+                // console.log(user);
             }else{
                 if(this.props.history.location.pathname == '/board'){
                     alert("로그인이 필요한 서비스입니다.")
@@ -25,7 +26,6 @@ class Board extends Component {
             }
         })
         var post_list = [];
-        var date = new Date();
         firebase.firestore().collection('Post').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
@@ -34,12 +34,14 @@ class Board extends Component {
                 var date_format = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate()
                 post.id = doc.id;
                 post.user_id = doc.data().user_id;
+                post.user_name = doc.data().user_name;
                 post.title = doc.data().title;
                 post.content = doc.data().content;
                 post.photo = doc.data().photo;
                 // post.created_date = date_format;
                 post.modified_date = date_format;
                 post_list.push(post)
+                console.log(post)
             })
             this.setState({
                 data : post_list
