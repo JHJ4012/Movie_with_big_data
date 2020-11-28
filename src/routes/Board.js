@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
+import { Link } from 'react-router-dom';
+import Board_list from '../components/table/Board_list'
 
 class Board extends Component {
     _isMounted = false;
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            list : []
+            data : []
         }
     }
 
@@ -22,34 +24,40 @@ class Board extends Component {
                 }
             }
         })
-        var post_list = []
+        var post_list = [];
+        var date = new Date();
         firebase.firestore().collection('Post').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 var post = {}
+                var date = new Date(doc.data().modified_date.seconds * 1000);
+                var date_format = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate()
                 post.id = doc.id;
                 post.user_id = doc.data().user_id;
                 post.title = doc.data().title;
                 post.content = doc.data().content;
                 post.photo = doc.data().photo;
-                post.created_date = doc.data().created_date;
-                post.modified_date = doc.data().modified_date;
+                // post.created_date = date_format;
+                post.modified_date = date_format;
                 post_list.push(post)
             })
             this.setState({
-                list : post_list
+                data : post_list
             })
-            console.log(this.state.list);
         })
         .catch((err) => {
             console.log(err);
         })
     }
-
     render() {
         return (
             <div>
-
+                <div>
+                    {this.state.data.length !== 0  ? <Board_list data={this.state.data}/> : ''}
+                </div>
+                <div>
+                    <Link to = "/create_post">글쓰기</Link>
+                </div>
             </div>
         );
     }
