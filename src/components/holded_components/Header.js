@@ -7,7 +7,7 @@ class Header extends Component {
         return (
             <div>
                 <div className = "header">
-                    <Link to = "/" className = "header_title"><h1>Movie_with_big_data</h1></Link>
+                    <Link to = "/" className = "header_title" replace={true}><h1>Movie_with_big_data</h1></Link>
                 </div>
             </div>
         );

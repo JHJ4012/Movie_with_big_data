@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 import './css/Main.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import firebase from '../firebase';
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logged : firebase.auth().currentUser,
+            logged : '',
             email : '',
             password : '',
+            message : '',
         }
         this.logout = this.logout.bind(this);
     }
 
+    componentDidMount(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+                this.setState({
+                    logged : user
+                })
+            }else{
+                this.setState({
+                    logged : null
+                })
+            }
+        })
+    }
     onChange = (e) => {
         const state = this.state
         state[e.target.name] = e.target.value;
@@ -44,6 +58,7 @@ class Main extends Component {
         .then(() => {
             var user = firebase.auth().currentUser;
             this.setState({
+                message : '',
                 logged : user
             })
             if(user.displayName == null){
@@ -51,7 +66,7 @@ class Main extends Component {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert("아이디나 비밀번호를 확인하세요.")
         })
     }
 
@@ -62,6 +77,7 @@ class Main extends Component {
         .then(() => {
             var user = firebase.auth().currentUser;
             this.setState({
+                message : '',
                 logged : user
             })
             if(user.displayName == null){
@@ -69,7 +85,7 @@ class Main extends Component {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert("로그인에 실패하였습니다.")
         })
     }
     render() {
@@ -93,6 +109,9 @@ class Main extends Component {
                         </div>
                         <div>
                             <Link to = "/register" className="register">새로운 회원으로 로그인하기</Link>
+                        </div>
+                        <div>
+                            {this.state.message}
                         </div>
                     </div>
                 }

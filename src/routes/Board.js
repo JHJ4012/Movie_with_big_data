@@ -2,84 +2,54 @@ import React, { Component } from 'react';
 import firebase from '../firebase';
 
 class Board extends Component {
-    
+    _isMounted = false;
     constructor() {
         super();
-        this.ref = firebase.firestore().collection('user');
-        this.unsubscribe = null;
         this.state = {
-            id : '',
-            pwd : '',
-            name : '',
-            manager : false
+            list : []
         }
     }
 
-    onClick = () => {
-        // const test = [];
-        // this.ref.onSnapshot((snapshot) => {
-        //     snapshot.docs.map((doc) => {
-        //         test.push({
-        //             id : doc.data().id,
-        //             pwd : doc.data().pwd,
-        //             name : doc.data().name,
-        //             manager : doc.data().manager
-        //         })
-        //     })
-        // });
-        // console.log(test);
-        this.ref.get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(`${doc.id} => ${doc.data().name}`);
+    componentDidMount(){
+        this._isMounted = true;
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+                console.log(user);
+            }else{
+                if(this.props.history.location.pathname == '/board'){
+                    alert("로그인이 필요한 서비스입니다.")
+                    this.props.history.replace('/');
+                }
+            }
+        })
+        var post_list = []
+        firebase.firestore().collection('Post').get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                var post = {}
+                post.id = doc.id;
+                post.user_id = doc.data().user_id;
+                post.title = doc.data().title;
+                post.content = doc.data().content;
+                post.photo = doc.data().photo;
+                post.created_date = doc.data().created_date;
+                post.modified_date = doc.data().modified_date;
+                post_list.push(post)
             })
+            this.setState({
+                list : post_list
+            })
+            console.log(this.state.list);
         })
-    }
-
-    onChange = (e) => {
-        const state = this.state
-        state[e.target.name] = e.target.value;
-        this.setState(state);
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        const { id, pwd, name, manager } = this.state;
-        this.ref.add({
-          id,
-          pwd,
-          name,
-          manager
-        }).then((docRef) => {
-          this.setState({
-            id: '',
-            pwd: '',
-            name: ''
-          });
+        .catch((err) => {
+            console.log(err);
         })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
-        });
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
-                    <div class="form-group">
-                        <label>ID</label>
-                        <input type="text" name="id" onChange={this.onChange} placeholder="Title" />
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <textArea name="pwd" onChange={this.onChange} placeholder="Description" cols="80" rows="3"></textArea>
-                    </div>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" onChange={this.onChange} placeholder="Author" />
-                    </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
+
             </div>
         );
     }
