@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import '../css/Table.css'
-import firebase from '../../firebase';
 
 class Board_list extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: this.props.data,
-            post_user_name : ''
+            data: this.props.data
         }
+    }
+
+    detail_Post = (c) => {
+        this.props.history.push('/detail_post', c);
     }
 
     render() {
@@ -31,7 +35,7 @@ class Board_list extends Component {
                             {   
                                 this.state.data.map(c => {
                                     return(
-                                        <TableRow key = {c.id}>
+                                        <TableRow key = {c.id} onClick={() => this.detail_Post(c)}>
                                             <TableCell>{c.title !== null ? c.title : ''}</TableCell>
                                             <TableCell>{c.user_name !== null ? c.user_name : ''}</TableCell>
                                             <TableCell>{c.modified_date !== null ? c.modified_date : ''}</TableCell>
@@ -46,4 +50,4 @@ class Board_list extends Component {
     }
 }
 
-export default Board_list;
+export default withRouter(Board_list)

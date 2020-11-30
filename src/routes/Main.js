@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/Main.css'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import firebase from '../firebase';
 
 class Main extends Component {
@@ -34,7 +34,7 @@ class Main extends Component {
         this.setState(state);
     }
 
-    logout(e){
+    logout = (e) => {
         e.preventDefault();
         if (this.state.logged != null){
             firebase.auth().signOut()

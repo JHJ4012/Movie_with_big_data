@@ -16,9 +16,7 @@ class Board extends Component {
     componentDidMount(){
         this._isMounted = true;
         firebase.auth().onAuthStateChanged((user) => {
-            if(user){
-                // console.log(user);
-            }else{
+            if(!user){
                 if(this.props.history.location.pathname == '/board'){
                     alert("로그인이 필요한 서비스입니다.")
                     this.props.history.replace('/');
@@ -26,7 +24,7 @@ class Board extends Component {
             }
         })
         var post_list = [];
-        firebase.firestore().collection('Post').get()
+        firebase.firestore().collection('Post').orderBy('modified_date', 'desc').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 var post = {}
@@ -41,7 +39,6 @@ class Board extends Component {
                 // post.created_date = date_format;
                 post.modified_date = date_format;
                 post_list.push(post)
-                console.log(post)
             })
             this.setState({
                 data : post_list

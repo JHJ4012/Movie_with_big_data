@@ -21,7 +21,6 @@ const styles  = {
 class Search extends Component {
 
   constructor(props) {
-    console.log(firebase.auth().currentUser)
     super(props);
     this.state = {
       control: 0,

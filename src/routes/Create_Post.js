@@ -43,6 +43,9 @@ class Create_Post extends Component {
             modified_date : new Date(),
             Photo : photo
         })
+        .then(() => {
+            this.props.history.goBack();
+        })
     }
 
     render() {
