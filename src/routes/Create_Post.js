@@ -50,15 +50,15 @@ class Create_Post extends Component {
 
     render() {
         return (
-            <div>
+            <div className = "entire_post">
                 <form onSubmit={this.onSubmit}>
-                    <div>
-                        <label>Title</label>
-                        <input type="text" name="title" onChange={this.onChange} placeholder ="title"/>
+                    <div className = "title_user_name">
+                        <p className = "title_label">제목</p>
+                        <textarea type="text" name="title" onChange={this.onChange} className = "post_title" />
                     </div>
                     <div>
-                        <label>Content</label>
-                        <textarea name="content" cols="40" rows="8" onChange={this.onChange} placeholder="content"/>
+                        <p>내용</p>
+                        <textarea name="content" onChange={this.onChange} className = "post_content" />
                     </div>
                     <button type="submit">Submit</button>
                 </form>

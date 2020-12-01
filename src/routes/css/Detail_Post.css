@@ -1,0 +1,79 @@
+.entire_post{
+    width : 80vw;
+    display: inline-block;
+    padding-top : 2rem;
+    padding-left : 13rem;
+}
+
+.title_user_name{
+    display : flex;
+    margin-bottom : 2rem;
+}
+
+.post_title{
+    background-color: white;
+    display : inline-block;
+    opacity: 0.8;
+    color : black;
+    font-size : 30px;
+    width : 50vw;
+    height : 5vh;
+    margin-left : 1rem;
+    margin-right : 3rem;
+}
+
+.post_user_name{
+    border : none;
+    width : 10vw;
+    height : 5vh;
+    line-height : 5vh;
+    font-size : 15px;
+    color : black;
+    background-color: white;
+    opacity : 0.8;
+    text-align : center;
+    margin-left : 1rem;
+}
+
+.post_content{
+    border : none;
+    width : 71vw;
+    height : 50vh;
+    font-size : 30px;
+    color : black;
+    background-color: white;
+    opacity : 0.8;
+}
+
+.title_label{
+    height : 5vh;
+    line-height : 5vh;
+    margin-top : 0px;
+    margin-bottom : 0px;
+}
+
+.detail_button{
+    float : right;
+    margin-top : 2rem;
+    margin-right : 9rem;
+}
+
+.link_modify_button{
+    background-color : gray;
+    color : white;
+    border-radius : 5px;
+    margin-right : 1rem;
+}
+
+.modify_button{
+    background-color : gray;
+    color : white;
+    border-radius : 5px;
+}
+
+.delete_button{
+    background-color : gray;
+    color : white;
+    border-radius : 5px;
+    margin-right : 1rem;
+}

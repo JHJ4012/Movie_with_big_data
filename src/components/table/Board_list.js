@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
-import '../css/Table.css'
+import '../css/About_Board.css'
 
 class Board_list extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ class Board_list extends Component {
                             {   
                                 this.state.data.map(c => {
                                     return(
-                                        <TableRow key = {c.id} onClick={() => this.detail_Post(c)}>
+                                        <TableRow className = "board_item" key = {c.id} onClick={() => this.detail_Post(c)}>
                                             <TableCell>{c.title !== null ? c.title : ''}</TableCell>
                                             <TableCell>{c.user_name !== null ? c.user_name : ''}</TableCell>
                                             <TableCell>{c.modified_date !== null ? c.modified_date : ''}</TableCell>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link } from 'react-router-dom';
 import Board_list from '../components/table/Board_list';
-// import * as admin from 'firebase-admin';
+import './css/Board.css'
 
 class Board extends Component {
     _isMounted = false;
@@ -24,7 +24,7 @@ class Board extends Component {
             }
         })
         var post_list = [];
-        firebase.firestore().collection('Post').orderBy('modified_date', 'desc').get()
+        firebase.firestore().collection('Post').orderBy('created_date', 'desc').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 var post = {}
@@ -54,8 +54,8 @@ class Board extends Component {
                 <div>
                     {this.state.data.length !== 0  ? <Board_list data={this.state.data}/> : ''}
                 </div>
-                <div>
-                    <Link to = "/create_post">글쓰기</Link>
+                <div className = "link_create_div">
+                    <Link to = "/create_post" className = "link_create">글쓰기</Link>
                 </div>
             </div>
         );

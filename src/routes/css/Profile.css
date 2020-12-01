@@ -1,0 +1,21 @@
+.profile{
+    padding-top : 1rem;
+}
+
+.profile_screen{
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top : 2rem;
+}
+
+.description_profile{
+    text-align : center;
+}
+
+.input_profile{
+    width : 24vw;
+    height : 7vh;
+    padding-left : 1rem;
+}

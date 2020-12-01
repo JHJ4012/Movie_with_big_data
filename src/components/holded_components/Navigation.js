@@ -9,7 +9,6 @@ class Navigation extends Component {
                 <hr />
                 <div className="navigation">
                     <Link to="/search" className="item">검색</Link>
-                    <Link to="/boxOffice" className="item">박스오피스</Link>
                     <Link to="/board" className="item">자유게시판</Link>
                 </div>
                 <hr />

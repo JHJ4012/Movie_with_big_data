@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './css/Main.css'
+import Paper from '@material-ui/core/Paper'
+import InputBase from '@material-ui/core/InputBase'
+import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import firebase from '../firebase';
 
@@ -92,20 +95,22 @@ class Main extends Component {
         return (
             <div>
                 {this.state.logged == null &&
-                    <div>
+                    <div className="login_screen">
                         <form onSubmit={this.onSubmit}>
-                            <div>
-                                <label>ID</label>
-                                <input type="email" name="email" onChange={this.onChange} placeholder="email" />
-                            </div>
-                            <div>
-                                <label>Password</label>
-                                <input type="password" name="password" onChange={this.onChange} placeholder="password"/>
-                            </div>
-                            <button type="submit">Submit</button>
+                            <Paper className="input_paper">
+                                <div>
+                                    <InputBase type="email" name="email" onChange={this.onChange} placeholder="email" className="input_login"/>
+                                </div>
+                                <div>
+                                    <InputBase type="password" name="password" onChange={this.onChange} placeholder="password" className="input_login"/>
+                                </div>
+                                <div className="login_button">
+                                    <Button type="submit"  className="submit_button">로그인 하기</Button>
+                                </div>
+                            </Paper>
                         </form>
-                        <div>
-                            <button onClick={this.gLogin}>구글 로그인</button>
+                        <div className="google">
+                            <Button onClick={this.gLogin} variant = "contained" color="primary" >구글 로그인</Button>
                         </div>
                         <div>
                             <Link to = "/register" className="register">새로운 회원으로 로그인하기</Link>
@@ -116,8 +121,14 @@ class Main extends Component {
                     </div>
                 }
                 {this.state.logged != null &&
-                    <div>
-                        <Link to = "/" className="logout" onClick={this.logout}>로그아웃</Link>
+                    <div className="logout">
+                        <div className = "description">
+                            <p>
+                                영화 제목, 영화인, 영화사를 검색하여 원하는 정보를 얻어가세요!! <br/>
+                                자유게시판에서 영화에 대한 정보를 공유하는 기능도 있습니다!!
+                            </p>
+                        </div>
+                        <Button to = "/" className="logout" onClick={this.logout} variant = "contained" color="secondary" >로그아웃</Button>
                     </div>
                 }
             </div>

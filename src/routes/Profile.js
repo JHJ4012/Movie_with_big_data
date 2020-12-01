@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
+import Paper from '@material-ui/core/Paper'
+import InputBase from '@material-ui/core/InputBase'
+import Button from '@material-ui/core/Button'
+import './css/Profile.css'
 
 class Profile extends Component {
     
@@ -38,14 +42,23 @@ class Profile extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <div>
-                        <label>Name</label>
-                        <input type="text" name="name" onChange={this.onChange} placeholder="name" />
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
+            <div className = "profile">
+                <div className = "profile_screen">
+                    <form onSubmit={this.onSubmit}>
+                        <div className = "description_profile">
+                            <h2>닉네임을 입력하세요</h2>
+                        </div>
+                        <Paper className="input_paper">
+                            <div>
+                                <InputBase type="text" name="name" onChange={this.onChange} placeholder="name" className="input_profile"/>
+                            </div>
+                            <div className="register_button">
+                                <Button type="submit">닉네임 입력하기</Button>
+                            </div>
+                        </Paper>
+                    </form>
+                </div>
+
             </div>
         );
     }

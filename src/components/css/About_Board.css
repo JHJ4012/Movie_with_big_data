@@ -1,0 +1,4 @@
+.board_item:hover {
+    cursor : pointer;
+    background-color : gray;
+}
