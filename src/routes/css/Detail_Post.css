@@ -38,7 +38,7 @@
 .post_content{
     border : none;
     width : 71vw;
-    height : 50vh;
+    min-height : 50vh;
     font-size : 30px;
     color : black;
     background-color: white;

@@ -11,6 +11,7 @@ import Profile from './routes/Profile'
 import Create_Post from './routes/Create_Post'
 import Detail_Post from './routes/Detail_Post'
 import Modify_Post from './routes/Modify_Post'
+import test from './routes/test'
 import './App.css'
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
             <Route path = "/create_post" component = {Create_Post}/>
             <Route path = "/detail_post" component = {Detail_Post}/>
             <Route path = "/modify_post" component = {Modify_Post}/>
+            <Route path = "/test" component = {test}/>
           </div>
           <Footer/>
         </Router>

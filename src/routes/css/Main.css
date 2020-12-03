@@ -47,3 +47,11 @@
 .description{
     margin-top : 10vh;
 }
+
+Link:hover{
+    cursor: pointer;
+}
+
+Button:hover{
+    cursor: pointer;
+}
