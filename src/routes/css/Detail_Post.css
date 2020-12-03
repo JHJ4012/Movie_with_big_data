@@ -45,6 +45,22 @@
     opacity : 0.8;
 }
 
+.image_box{
+    text-align : center;
+    margin-right : 9rem;
+}
+
+.image_box img{
+    width : auto;
+    height : auto;
+    max-width : 800px;
+    max-height : 400px;
+}
+
+/* .image_box img{
+    position: absolute;
+} */
+
 .title_label{
     height : 5vh;
     line-height : 5vh;

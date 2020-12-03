@@ -13,7 +13,10 @@ class Detail_Post extends Component {
             user_name : this.props.location.state.user_name,
             title : this.props.location.state.title,
             content : this.props.location.state.content,
-            cur_user : ''
+            photo : this.props.location.state.photo,
+            cur_user : '',
+            url : '',
+            comments : []
         }
     }
 
@@ -24,6 +27,16 @@ class Detail_Post extends Component {
                     cur_user : user.uid
                 })
             }
+        })
+        firebase.storage().ref().child(`images/${this.state.photo}`).getDownloadURL()  //photo 가져오는거
+        .then((url) => {
+            this.setState({
+                url : url
+            })
+            console.log(url)
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
     
@@ -41,6 +54,10 @@ class Detail_Post extends Component {
         this.props.history.push("/modify_post", this.props.location.state)
     }
 
+    createComment = (e) => {
+        e.preventDefault();
+    }
+
     render() {
         return (
             <div>
@@ -50,6 +67,11 @@ class Detail_Post extends Component {
                             <div name="title" className = "post_title">{this.state.title}</div>
                         <p className = "title_label">작성자</p>
                             <div name="user_name" className = "post_user_name">{this.state.user_name}</div>
+                    </div>
+                    <div className = "image_box">
+                        {this.state.url &&
+                            <img src = {this.state.url}></img>
+                        }
                     </div>
                     <p>내용</p>
                         <div name="content" className = "post_content">{this.state.content}</div>
@@ -61,6 +83,11 @@ class Detail_Post extends Component {
                             <button onClick={this.delete_Post} className = "delete_button">삭제하기</button>
                         }
                     </div>
+                </div>
+                <div className = "comment_box">
+                    <form onSubmit={this.createComment}>
+
+                    </form>
                 </div>
             </div>
         );
