@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link } from 'react-router-dom'
 import './css/Detail_Post.css'
+import Board_comment from '../components/table/Board_comment';
 
 class Detail_Post extends Component {
     constructor(props) {
@@ -15,8 +16,10 @@ class Detail_Post extends Component {
             content : this.props.location.state.content,
             photo : this.props.location.state.photo,
             cur_user : '',
+            cur_user_name : '',
             url : '',
-            comments : []
+            comments : [],
+            comment : ''
         }
     }
 
@@ -24,7 +27,8 @@ class Detail_Post extends Component {
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 this.setState({
-                    cur_user : user.uid
+                    cur_user : user.uid,
+                    cur_user_name : user.displayName
                 })
             }
         })
@@ -38,8 +42,33 @@ class Detail_Post extends Component {
         .catch((err) => {
             console.log(err)
         })
+        var comment_list = []
+        firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                if (doc.data().post_id == this.state.post_id){
+                    var comment_info = {}
+                    var date = new Date(doc.data().created_date.seconds * 1000);
+                    var date_format = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate()
+                    comment_info.id = doc.id;
+                    comment_info.user_name = doc.data().user_name;
+                    comment_info.content = doc.data().content;
+                    comment_info.created_date = date_format;
+                    comment_list.push(comment_info);
+                }
+            })
+            this.setState({
+                comments : comment_list
+            })
+        })
     }
     
+    onChange = (e) => {
+        const state = this.state
+        state[e.target.name] = e.target.value;
+        this.setState(state);
+    }
+
     delete_Post = () => {
         firebase.firestore().collection('Post').doc(this.state.post_id).delete()
         .then(() => {
@@ -56,6 +85,35 @@ class Detail_Post extends Component {
 
     createComment = (e) => {
         e.preventDefault();
+        const {post_id, comment, cur_user_name} = this.state;
+        firebase.firestore().collection('Comment').doc().set({
+            post_id : post_id,
+            content : comment,
+            user_name : cur_user_name,
+            created_date : new Date(),
+        })
+        .then(() => {
+            var comment_list = []
+            console.log('success');
+            firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    if (doc.data().post_id == this.state.post_id){
+                        var comment_info = {}
+                        var date = new Date(doc.data().created_date.seconds * 1000);
+                        var date_format = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate()
+                        comment_info.id = doc.id;
+                        comment_info.user_name = doc.data().user_name;
+                        comment_info.content = doc.data().content;
+                        comment_info.created_date = date_format;
+                        comment_list.push(comment_info);
+                    }
+                })
+                this.setState({
+                    comments : comment_list
+                })
+            })
+        })
     }
 
     render() {
@@ -86,8 +144,11 @@ class Detail_Post extends Component {
                 </div>
                 <div className = "comment_box">
                     <form onSubmit={this.createComment}>
-
+                        <label>댓글</label>
+                        <textarea type="text" name = "comment" onChange = {this.onChange}/>
+                        <button type = "submit">등록</button>
                     </form>
+                    {this.state.comments.length !== 0  ? <Board_comment data={this.state.comments}/> : ''}
                 </div>
             </div>
         );
