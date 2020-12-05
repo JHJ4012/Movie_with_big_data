@@ -4,6 +4,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
+import '../css/Board_comment.css'
 
 class Board_comment extends Component {
     constructor(props) {
@@ -23,23 +24,23 @@ class Board_comment extends Component {
 
     render() {
         return (
-            <div className = "table_div">
+            <div className = "comment_table">
                 <Table>
-                    <TableHead>
+                    {/* <TableHead>
                         <TableRow>
                             <TableCell>내용</TableCell>
                             <TableCell>작성자</TableCell>
                             <TableCell>날짜</TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHead> */}
                     <TableBody>
                             {   
                                 this.state.data.map(c => {
                                     return(
-                                        <TableRow className = "board_item" key = {c.id}>
-                                            <TableCell>{c.content !== null ? c.content : ''}</TableCell>
-                                            <TableCell>{c.user_name !== null ? c.user_name : ''}</TableCell>
-                                            <TableCell>{c.created_date !== null ? c.created_date : ''}</TableCell>
+                                        <TableRow className = "comment_item" key = {c.id}>
+                                            <TableCell className="content">{c.content !== null ? c.content : ''}</TableCell>
+                                            <TableCell className="name">{c.user_name !== null ? c.user_name : ''}</TableCell>
+                                            <TableCell className="date">{c.created_date !== null ? c.created_date : ''}</TableCell>
                                         </TableRow>
                                     );
                                 })

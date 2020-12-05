@@ -1,3 +1,10 @@
+.board_table{
+    margin: 8rem;
+    margin-top : 4rem;
+    margin-bottom : 2rem;
+    background-color : white;
+}
+
 .board_item:hover {
     cursor : pointer;
     background-color : gray;

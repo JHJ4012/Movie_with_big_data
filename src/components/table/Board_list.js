@@ -22,7 +22,7 @@ class Board_list extends Component {
 
     render() {
         return (
-            <div className = "table_div">
+            <div className = "board_table">
                 <Table>
                     <TableHead>
                         <TableRow>

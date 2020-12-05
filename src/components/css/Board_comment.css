@@ -1,0 +1,12 @@
+.comment_table{
+    width : 50%;
+    text-align : center;
+    margin:0 auto;
+    margin-top : 2rem;
+    margin-bottom : 2rem;
+    background-color: white;
+}
+
+.content{
+    width : 80%;
+}

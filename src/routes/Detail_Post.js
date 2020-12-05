@@ -32,16 +32,19 @@ class Detail_Post extends Component {
                 })
             }
         })
-        firebase.storage().ref().child(`images/${this.state.photo}`).getDownloadURL()  //photo 가져오는거
-        .then((url) => {
-            this.setState({
-                url : url
+        if(this.state.photo != null){
+            firebase.storage().ref().child(`images/${this.state.photo}`).getDownloadURL()  //photo 가져오는거
+            .then((url) => {
+                this.setState({
+                    url : url
+                })
+                console.log(url)
             })
-            console.log(url)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+        
         var comment_list = []
         firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()
         .then((snapshot) => {
@@ -110,7 +113,8 @@ class Detail_Post extends Component {
                     }
                 })
                 this.setState({
-                    comments : comment_list
+                    comments : comment_list,
+                    comment : ''
                 })
             })
         })
@@ -143,11 +147,13 @@ class Detail_Post extends Component {
                     </div>
                 </div>
                 <div className = "comment_box">
-                    <form onSubmit={this.createComment}>
-                        <label>댓글</label>
-                        <textarea type="text" name = "comment" onChange = {this.onChange}/>
-                        <button type = "submit">등록</button>
-                    </form>
+                    <div className = "comment_input">
+                        <p className = "comment_label">댓글 쓰기</p>
+                        <form onSubmit={this.createComment}>
+                            <textarea type="text" name = "comment" className = "comment_content" onChange = {this.onChange} value={this.state.comment}/>
+                            <button type = "submit" className= "comment_submit">등록</button>
+                        </form>
+                    </div>
                     {this.state.comments.length !== 0  ? <Board_comment data={this.state.comments}/> : ''}
                 </div>
             </div>

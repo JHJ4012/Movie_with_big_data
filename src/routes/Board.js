@@ -51,8 +51,10 @@ class Board extends Component {
     render() {
         return (
             <div>
-                <div>
-                    {this.state.data.length !== 0  ? <Board_list data={this.state.data}/> : ''}
+                <div className = "board_body">
+                    {this.state.data.length !== 0  ? 
+                    <Board_list data={this.state.data}/> 
+                    : <div className = "notice_no_post">아직 아무도 글을 올리지 않았어요!</div>}
                 </div>
                 <div className = "link_create_div">
                     <Link to = "/create_post" className = "link_create">글쓰기</Link>

@@ -55,3 +55,7 @@ Link:hover{
 Button:hover{
     cursor: pointer;
 }
+
+textarea{
+    resize : none;
+}
