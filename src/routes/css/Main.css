@@ -48,6 +48,10 @@
     margin-top : 10vh;
 }
 
+.welcome_notice{
+    text-align: center;
+}
+
 Link:hover{
     cursor: pointer;
 }

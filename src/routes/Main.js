@@ -10,6 +10,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_name : '',
             logged : '',
             email : '',
             password : '',
@@ -22,7 +23,8 @@ class Main extends Component {
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 this.setState({
-                    logged : user
+                    logged : user,
+                    user_name : user.displayName
                 })
             }else{
                 this.setState({
@@ -123,6 +125,7 @@ class Main extends Component {
                 {this.state.logged != null &&
                     <div className="logout">
                         <div className = "description">
+                            <p className="welcome_notice">{this.state.user_name}님 환영합니다</p>
                             <p>
                                 영화 제목, 영화인, 영화사를 검색하여 원하는 정보를 얻어가세요!! <br/>
                                 자유게시판에서 영화에 대한 정보를 공유하는 기능도 있습니다!!
