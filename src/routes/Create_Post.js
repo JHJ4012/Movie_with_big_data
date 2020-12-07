@@ -106,7 +106,7 @@ class Create_Post extends Component {
                         <p>내용</p>
                         <textarea name="content" onChange={this.onChange} className = "post_content" />
                     </div>
-                    <button type="submit">Submit</button>
+                    <button type="submit">업로드</button>
                 </form>
             </div>
         );

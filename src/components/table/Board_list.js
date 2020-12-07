@@ -16,6 +16,14 @@ class Board_list extends Component {
         }
     }
 
+    componentDidUpdate(previousProps, previousState){
+        if (previousProps.data !== this.props.data) {
+            this.setState({
+                data : this.props.data
+            })
+        }
+    }
+
     detail_Post = (c) => {
         this.props.history.push('/detail_post', c);
     }

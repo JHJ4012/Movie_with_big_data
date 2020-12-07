@@ -52,26 +52,45 @@ class Modify_Post extends Component {
     update_Post = (e) => {
         e.preventDefault();
         const {title, content, photo } = this.state;
-        // console.log(title, content)
-        firebase.firestore().collection('Post').doc(this.state.post_id).update({
-            title : title,
-            content : content,
-            modified_date : new Date(),
-            photo : photo.name
-        })
-        .then(() => {
-            firebase.storage().ref().child(`images/${this.state.photo.name}`).put(this.state.photo)
-            .then((snapshot) => {
-                console.log(snapshot);
+        var photo_name = '';
+        if(photo.name){
+            photo_name = photo.name
+        }else{
+            photo_name = photo
+        }
+        if(photo != null){
+            firebase.firestore().collection('Post').doc(this.state.post_id).update({
+                title : title,
+                content : content,
+                modified_date : new Date(),
+                photo : photo_name
+            })
+            .then(() => {
+                firebase.storage().ref().child(`images/${this.state.photo.name}`).put(this.state.photo)
+                .then((snapshot) => {
+                    console.log(snapshot);
+                    this.props.history.replace('/board');
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }else{
+            firebase.firestore().collection('Post').doc(this.state.post_id).update({
+                title : title,
+                content : content,
+                modified_date : new Date()
+            })
+            .then(() => {
                 this.props.history.replace('/board');
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
             })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        }
     }
 
     render() {
