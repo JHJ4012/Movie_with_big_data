@@ -8,7 +8,7 @@
 
 プログラム実演
 -------------
-![Alt Text](https://ifh.cc/g/uPzsA5.jpg)
+![Alt Text](https://ifh.cc/g/kNlN6p.jpg)
 
 機能
 -------------
