@@ -32,7 +32,7 @@ class Search extends Component {
     }
   }
 
-  change_Button_Value() {
+  change_Button_Value() { //영화인, 영화 제목, 영화사. 검색 조건 설정
     if (this.state.control + 1 !== this.state.select_value.length) {
       this.setState({
         control: this.state.control + 1
@@ -44,7 +44,8 @@ class Search extends Component {
     }
   }
 
-  async with_Movie_Title(title) { //페이징 기법 써서 페이지로 불러오게 해야됨 curPage 페이지 설정
+  //비동기로 하면 렌더링 되는게 정보를 가져오는 것보다 더 빨라서 async, await 기법 사용
+  async with_Movie_Title(title) { //페이징 기법 써서 페이지로 불러오게 해야됨 curPage 페이지 설정, 영화 제목으로 검색
     this.setState({
       data: [],
       input_data : title,
@@ -66,7 +67,7 @@ class Search extends Component {
       });
   };
 
-  async with_People_Name(people) {
+  async with_People_Name(people) {  //영화인으로 검색
     this.setState({
       data: [],
       input_data : people,
@@ -87,7 +88,7 @@ class Search extends Component {
       })
   }
 
-  async with_Company_Name(company) {
+  async with_Company_Name(company) {  //영화사로 검색
     this.setState({
       data: [],
       input_data : company,

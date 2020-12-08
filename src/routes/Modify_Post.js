@@ -4,8 +4,7 @@ import './css/Detail_Post.css'
 
 class Modify_Post extends Component {
     constructor(props) {
-        super(props)
-        console.log(this.props)
+        super(props)    //props에는 Detail_Post으로부터의 데이터 담겨있음
         this.state = {
             post_id : this.props.location.state.id,
             user_name : this.props.location.state.user_name,
@@ -17,7 +16,7 @@ class Modify_Post extends Component {
     }
 
     componentDidMount(){
-        firebase.storage().ref().child(`images/${this.props.location.state.photo}`).getDownloadURL()  //photo 가져오는거
+        firebase.storage().ref().child(`images/${this.props.location.state.photo}`).getDownloadURL()  //firebase의 storage에서 photo url가져오는거
         .then((url) => {
             this.setState({
                 photo_url : url
@@ -34,7 +33,7 @@ class Modify_Post extends Component {
         this.setState(state);
     }
 
-    onListenerFile = (e) => {
+    onListenerFile = (e) => {   //파일 정보 가져오기. file 객체를 가져오기 때문에 별도의 FileReader를 사용한 메서드 정의
         e.preventDefault();
         console.log(e.target.files[0])
         this.setState({
@@ -53,13 +52,14 @@ class Modify_Post extends Component {
         e.preventDefault();
         const {title, content, photo } = this.state;
         var photo_name = '';
-        if(photo.name){
+        if(photo.name){ //photo를 바꿧는지 안 바꿧는지 구별하기 위해
             photo_name = photo.name
         }else{
             photo_name = photo
         }
+        
         if(photo != null){
-            firebase.firestore().collection('Post').doc(this.state.post_id).update({
+            firebase.firestore().collection('Post').doc(this.state.post_id).update({    //photo를 업로드 한 경우
                 title : title,
                 content : content,
                 modified_date : new Date(),
@@ -79,7 +79,7 @@ class Modify_Post extends Component {
                 console.log(err);
             })
         }else{
-            firebase.firestore().collection('Post').doc(this.state.post_id).update({
+            firebase.firestore().collection('Post').doc(this.state.post_id).update({    //photo를 업로드 하지 않은 경우
                 title : title,
                 content : content,
                 modified_date : new Date()

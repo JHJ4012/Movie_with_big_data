@@ -16,7 +16,7 @@ class Create_Post extends Component {
     }
 
     componentDidMount(){
-        firebase.auth().onAuthStateChanged((user) => {
+        firebase.auth().onAuthStateChanged((user) => {  //현재 로그인 된 사용자 정보
             if(user){
                this.setState({
                    user_id : user.uid,
@@ -26,7 +26,7 @@ class Create_Post extends Component {
         })
     }
 
-    onListenerFile = (e) => {
+    onListenerFile = (e) => {   //파일 정보 가져오기. file 객체를 가져오기 때문에 별도의 FileReader를 사용한 메서드 정의
         e.preventDefault();
         console.log(e.target.files[0])
         this.setState({
@@ -47,11 +47,11 @@ class Create_Post extends Component {
         this.setState(state);
     }
 
-    onSubmit = (e) => {
+    onSubmit = (e) => { //게시물 생성
         e.preventDefault();
         const { title, content, user_id, user_name, photo} = this.state;
-        if(photo != null){
-            firebase.firestore().collection('Post').doc().set({
+        if(photo != null){      //photo를 업로드 한 경우
+            firebase.firestore().collection('Post').doc().set({ 
                 user_id: user_id,
                 user_name : user_name,
                 title : title,
@@ -70,7 +70,7 @@ class Create_Post extends Component {
                     console.log(err)
                 })
             })
-        }else{
+        }else{  //photo를 업로드 안 한 경우
             firebase.firestore().collection('Post').doc().set({
                 user_id: user_id,
                 user_name : user_name,

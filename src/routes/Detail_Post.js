@@ -6,9 +6,7 @@ import Board_comment from '../components/table/Board_comment';
 
 class Detail_Post extends Component {
     constructor(props) {
-        super(props)
-        console.log(this.props)
-        console.log(this.props.location.state.user_name);
+        super(props)    //props에는 Board.js으로부터의 데이터 담겨있음
         this.state = {
             post_id : this.props.location.state.id,
             user_name : this.props.location.state.user_name,
@@ -18,14 +16,14 @@ class Detail_Post extends Component {
             cur_user : '',
             cur_user_name : '',
             url : '',
-            comments : [],
-            comment : ''
+            comments : [],  //전체 댓글 리스트
+            comment : ''    //사용자가 입력하는 댓글 내용
         }
     }
 
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged((user) => {
-            if(user){
+            if(user){   //user.uid를 사용해 cur_user_name을 구하려 하면 코드가 너무 길어져 그냥 cur_user_name을 따로 대입해줌.
                 this.setState({
                     cur_user : user.uid,
                     cur_user_name : user.displayName
@@ -46,12 +44,12 @@ class Detail_Post extends Component {
         }
         
         var comment_list = []
-        firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()
+        firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()    //댓글 리스트 가져옴
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 if (doc.data().post_id == this.state.post_id){
                     var comment_info = {}
-                    var date = new Date(doc.data().created_date.seconds * 1000);
+                    var date = new Date(doc.data().created_date.seconds * 1000);    //시간대 format을 구현하기 위해
                     var date_format = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate()
                     comment_info.id = doc.id;
                     comment_info.user_name = doc.data().user_name;
@@ -73,7 +71,7 @@ class Detail_Post extends Component {
     }
 
     delete_Post = () => {
-        firebase.firestore().collection('Post').doc(this.state.post_id).delete()
+        firebase.firestore().collection('Post').doc(this.state.post_id).delete()    //게시물 삭제
         .then(() => {
             this.props.history.replace('/board')
         })
@@ -82,11 +80,11 @@ class Detail_Post extends Component {
         })
     }
 
-    go_Update = () => {
+    go_Update = () => { //update화면으로 이동
         this.props.history.push("/modify_post", this.props.location.state)
     }
 
-    createComment = (e) => {
+    createComment = (e) => {    //댓글 생성
         e.preventDefault();
         const {post_id, comment, cur_user_name} = this.state;
         firebase.firestore().collection('Comment').doc().set({
@@ -98,7 +96,7 @@ class Detail_Post extends Component {
         .then(() => {
             var comment_list = []
             console.log('success');
-            firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()
+            firebase.firestore().collection('Comment').orderBy('created_date', 'desc').get()    //댓글 리스트를 초기화 하여 다시 렌더링 시키기 위해
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     if (doc.data().post_id == this.state.post_id){

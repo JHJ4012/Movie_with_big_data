@@ -22,11 +22,11 @@ class Profile extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        var user = firebase.auth().currentUser;
+        var user = firebase.auth().currentUser; //현재 로그인된 사용자 객체
         var {name} = this.state;
         if(user != null){
             console.log(name);
-            user.updateProfile({
+            user.updateProfile({    //현재 로그인 된 사용자 객체에 닉네임 설정
                 displayName : name
             })
             .then(() => {

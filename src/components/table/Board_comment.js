@@ -14,7 +14,7 @@ class Board_comment extends Component {
         }
     }
 
-    componentDidUpdate(previousProps, previousState){
+    componentDidUpdate(previousProps, previousState){   //Detail_Board.js에서 댓글 create 했을 떄 바뀌는 props 정보를 받기 위해서
         if (previousProps.data !== this.props.data) {
             this.setState({
                 data : this.props.data
@@ -26,13 +26,6 @@ class Board_comment extends Component {
         return (
             <div className = "comment_table">
                 <Table>
-                    {/* <TableHead>
-                        <TableRow>
-                            <TableCell>내용</TableCell>
-                            <TableCell>작성자</TableCell>
-                            <TableCell>날짜</TableCell>
-                        </TableRow>
-                    </TableHead> */}
                     <TableBody>
                             {   
                                 this.state.data.map(c => {

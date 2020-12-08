@@ -24,7 +24,7 @@ class Register extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email, password) //이메일과 패스워드로 회원가입
         .then(() => {
             var user = firebase.auth().currentUser;
             this.setState({

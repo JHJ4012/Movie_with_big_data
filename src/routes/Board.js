@@ -16,7 +16,7 @@ class Board extends Component {
 
     componentDidMount(){
         this._isMounted = true;
-        firebase.auth().onAuthStateChanged((user) => {
+        firebase.auth().onAuthStateChanged((user) => {  //로그인 여부 체크
             if(!user){
                 if(this.props.history.location.pathname == '/board'){
                     alert("로그인이 필요한 서비스입니다.")
@@ -25,7 +25,7 @@ class Board extends Component {
             }
         })
         var post_list = [];
-        firebase.firestore().collection('Post').orderBy('created_date', 'desc').limit(5).get()
+        firebase.firestore().collection('Post').orderBy('created_date', 'desc').limit(5).get()  //created_date를 기준으로 5개로 pagination 해서 가져옴
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 var post = {}
@@ -44,7 +44,7 @@ class Board extends Component {
             // console.log(snapshot.docs[snapshot.docs.length - 1])
             this.setState({
                 data : post_list,
-                last : snapshot.docs[snapshot.docs.length - 1]
+                last : snapshot.docs[snapshot.docs.length - 1]  //pagination 한 정보를 저장
             })
         })
         .catch((err) => {
@@ -52,10 +52,10 @@ class Board extends Component {
         })
     }
 
-    test = () => {
+    viewMore = () => {  // 전의 page 다음 게시물들을 불러옴
         firebase.firestore().collection('Post').orderBy('created_date', 'desc').startAfter(this.state.last.data().created_date).limit(5).get()
         .then((snapshot) => {
-            if(snapshot.docs.length != 0){
+            if(snapshot.docs.length != 0){  //다음 게시물이 있을 때
                 console.log(snapshot)
                 snapshot.forEach((doc) => {
                     var post = {}
@@ -74,7 +74,7 @@ class Board extends Component {
                 this.setState({
                     last : snapshot.docs[snapshot.docs.length - 1]
                 })
-            }else{
+            }else{  //다음 게시물이 없을 때
                 alert("더 이상 게시물이 없습니다.")
                 this.setState({
                     button_disable : true
@@ -93,7 +93,7 @@ class Board extends Component {
                     {this.state.data.length !== 0  ? 
                     <Board_list data={this.state.data}/> 
                     : <div className = "notice_no_post">아직 아무도 글을 올리지 않았어요!</div>}
-                    <button className = "pagin_button" onClick={this.test}>View More</button>
+                    <button className = "pagin_button" onClick={this.viewMore}>View More</button>
                     <div className = "link_create_div">
                         <Link to = "/create_post" className = "link_create">글쓰기</Link>
                     </div>

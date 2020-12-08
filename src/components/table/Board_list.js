@@ -16,7 +16,7 @@ class Board_list extends Component {
         }
     }
 
-    componentDidUpdate(previousProps, previousState){
+    componentDidUpdate(previousProps, previousState){   //Board.js에서 댓글 create 했을 떄 바뀌는 props 정보를 받기 위해서
         if (previousProps.data !== this.props.data) {
             this.setState({
                 data : this.props.data
@@ -24,7 +24,7 @@ class Board_list extends Component {
         }
     }
 
-    detail_Post = (c) => {
+    detail_Post = (c) => {  //각 게시물을 눌렀을 때 해당 게시물에 대해 Detail_Board.js에 데이터 전송 후 렌더링 
         this.props.history.push('/detail_post', c);
     }
 
